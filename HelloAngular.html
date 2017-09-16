@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello AngularJS 1</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+</head>
+<body>
+
+    <h4>
+        Hello AngularJS Module
+    </h4>
+
+    <div ng-app="mainApp" ng-controller="controller1">
+        <div ng-bind=" 'Nama : ' + nama"></div>
+        <div ng-bind=" 'Alamat : ' + alamat"></div>
+        <span ng-bind="{{a}} +  ' + ' +  {{b}} + ' = ' + {{a+b}}"></span><br/>
+
+
+        <div ng-controller="controller2">
+           Hobi : <input type="text" ng-model="hobby" placeholder="Hobi"/>
+           <span>{{result}}</span>
+           <br/>
+
+
+           <input type="submit" ng-click="myClick()" value="Click"/>
+        </div>
+
+        <div ng-controller="controller3">
+           <ul>
+              <li ng-repeat="a in arr">
+                 {{a}}
+              </li>
+           </ul>
+        </div>
+
+
+        <form ng-controller="controller4">
+            <table>
+                <tr>
+                    <td>Agree</td>
+                    <td><input type="checkbox" ng-model="agree" value="Hello World"/></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="width:100%;"><span ng-show="agree">Span</span></td>
+                </tr>
+                <tr>
+                    <td><span id="test">Hello Red</span></td>
+                    <td colspan="2" style="width: 100%;"><input type="submit" ng-click="klik()" value="Submit checkbox"/></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+
+</body>
+    <script>
+
+        var ngApp = angular.module('mainApp',[]);
+
+
+        ngApp.controller('controller4',function($scope){
+
+            angular.element(document.querySelector('#test')).css('color','crimson');
+
+            var spanTest = angular.element(document.querySelector('#test')).text();
+
+
+
+            $scope.klik = function(){
+                if(spanTest==='Hello Red'){
+                    alert('ini Hello Red');
+                }else{
+                    alert('ini bukan Hello Red');
+                }
+            };
+        });
+
+        ngApp.controller('controller3',function($scope){
+           $scope.arr = ['A','B','C','D','E','F','G'];
+        });
+
+        ngApp.controller('controller2',function($scope){
+
+            $scope.hobby = '' ;
+
+            $scope.result =  '';
+
+            $scope.myClick = function(){
+                if($scope.hobby === ''){
+                   $scope.result = 'Hobby field must not be empty';
+                }else{
+                   $scope.result = 'Your hobby is ' + $scope.hobby;
+                }
+            };
+
+
+
+            //$scope.text = 'Your Hobby is : ';
+        });
+
+        ngApp.controller('controller1',function($scope){
+            $scope.nama = 'Arief';
+            $scope.alamat = 'Muara Enim';
+            $scope.a = 5;
+            $scope.b = 5;
+        });
+
+
+    </script>
+</html>
